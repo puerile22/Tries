@@ -1,6 +1,6 @@
 // Defines the node object
 var Node = function(options) {
-
+  
 };
 
 var Trie = function() {
