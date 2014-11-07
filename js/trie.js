@@ -127,12 +127,34 @@ var Trie = function() {
   //
   // Returns Array of Strings.
   this.iterate = function(node) {
-
+    result = [];
+    if (!node) {
+      return result;
+    }
+    if (node === head) {
+      if (!Object.keys(head.children).length) {
+        return result;
+      } else {
+        node.value.letter = "";
+      }
+    }
+    this._iterate(node, node.value.letter);
+    return result;
   };
 
   // Recursive helper function for .iterate
-  this._iterate = function() {
-
+  this._iterate = function(node, string) {
+    var children = node.children;
+    if (!Object.keys(children).length) {
+      result.push(string);
+    } else {
+      if (node.value.word) {
+        result.push(string);
+      }
+      for (var key in children) {
+        this._iterate(children[key], string + children[key].value.letter);
+      }
+    }
   };
 
   // You may find this function useful for implementing iterate().
