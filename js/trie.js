@@ -71,19 +71,28 @@ var Trie = function() {
   //
   // Returns Array of Strings.
   this.search = function(prefix) {
+    if (!prefix) {
+      prefix = "";
+    }
     var node = this.findLastNode(prefix);
     result = [];
-    this._search(node, prefix);
+    if (node) {
+      this._search(node, prefix);
+    }
+    return result;
   };
 
   // Recursive function. Helper function for the search function.
   this._search = function(node, prefix) {
     var children = node.children;
     if (!Object.keys(children).length) {
-      return;
+      result.push(prefix);
     } else {
+      if (node.value.word) {
+        result.push(prefix);
+      }
       for (var key in children) {
-        this._search(children[key], prefix);
+        this._search(children[key], prefix + children[key].value.letter);
       }
     }
   };
