@@ -55,7 +55,7 @@ var Trie = function() {
     if (!string) {
       result = {node: parent, status: true};
       return;
-    } else if (!Object.keys(children).length) {
+    } else if (this.isEmpty(children)) {
       result = {node: parent, string: string};
       return;
     }
@@ -85,7 +85,7 @@ var Trie = function() {
   // Recursive function. Helper function for the search function.
   this._search = function(node, prefix) {
     var children = node.children;
-    if (!Object.keys(children).length) {
+    if (this.isEmpty(children)) {
       result.push(prefix);
     } else {
       if (node.value.word) {
@@ -111,7 +111,7 @@ var Trie = function() {
       return result = parent;
     }
     var children = parent.children;
-    if (!Object.keys(children).length) {
+    if (this.isEmpty(children)) {
       result = null;
       return;
     }
@@ -132,7 +132,7 @@ var Trie = function() {
       return result;
     }
     if (node === head) {
-      if (!Object.keys(head.children).length) {
+      if (this.isEmpty(head.children)) {
         return result;
       } else {
         node.value.letter = "";
@@ -145,7 +145,7 @@ var Trie = function() {
   // Recursive helper function for .iterate
   this._iterate = function(node, string) {
     var children = node.children;
-    if (!Object.keys(children).length) {
+    if (this.isEmpty(children)) {
       result.push(string);
     } else {
       if (node.value.word) {
@@ -165,6 +165,6 @@ var Trie = function() {
       return false;
     }
     return true;
-  }
+  };
 };
 
